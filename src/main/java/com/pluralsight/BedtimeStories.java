@@ -1,34 +1,59 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
+// Week 3 Stretch Goals
 public class BedtimeStories {
-    public static  void main(String[] args) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter the name of a story: ");
-        String fileName = scanner.nextLine().trim();
+        List<String> story = promptForStory(scanner);
 
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader buffReader = new BufferedReader(fileReader);
-
-            String input;
-            int lineNumber = 1;
-
-            while ((input = buffReader.readLine()) != null) {
-                System.out.println(lineNumber + ". " + input);
-                lineNumber++;
-            }
-            buffReader.close();
-        } catch (IOException e) {
-            System.out.println("Sorry, I couldn't read \"" + fileName + "\". Check the file name and try again.");
+        for (int i = 0; i < story.size(); i++) {
+            System.out.println((i + 1) + ". " + story.get(i));
         }
 
-        scanner.close();
+        printSummary(story);
+    }
+
+    static List<String> promptForStory(Scanner scanner) {
+        while (true) {
+            System.out.print("Enter the name of a story: ");
+            String fileName = scanner.nextLine().trim();
+
+            try {
+                return readStory(fileName);
+            } catch (FileNotFoundException e) {
+                System.out.println("Sorry, I couldn't find that story");
+            } catch (IOException e) {
+                System.out.println("Sorry, I couldn't read that story: " + e.getMessage());
+            }
+        }
+    }
+
+    static  List<String> readStory(String fileName) throws IOException {
+        List<String> story = new ArrayList<>();
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileReader))) {
+
+                String input;
+                while ((input = reader.readLine()) != null) {
+                    lines.add(line);
+                }
+            }
+            return lines;
+        }
+
+        private static void  printSummary(List<String> story) {
+            int wordCount = 0;
+            String longestLine = "";
+
+
     }
 }
 
