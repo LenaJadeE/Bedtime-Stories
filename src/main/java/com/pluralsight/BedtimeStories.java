@@ -37,12 +37,12 @@ public class BedtimeStories {
     }
 
     static  List<String> readStory(String fileName) throws IOException {
-        List<String> story = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileReader))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
 
-                String input;
-                while ((input = reader.readLine()) != null) {
+                String line;
+                while ((line = reader.readLine()) != null) {
                     lines.add(line);
                 }
             }
@@ -52,6 +52,22 @@ public class BedtimeStories {
         private static void  printSummary(List<String> story) {
             int wordCount = 0;
             String longestLine = "";
+
+            for (String line : story) {
+                String trimmed = line.trim();
+                if (!trimmed.isEmpty()) {
+                    wordCount += trimmed.split("\\s+").length;
+                }
+                if (line.length() > longestLine.length()) {
+                    longestLine = line;
+                }
+            }
+
+            System.out.println();
+            System.out.println("Summary");
+            System.out.println("Lines: " + story.size());
+            System.out.println("Words: " + wordCount);
+            System.out.println("Longest line (" + longestLine.length() + " characters): " + longestLine.trim());
 
 
     }
