@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class BedtimeStories {
@@ -22,8 +23,12 @@ public class BedtimeStories {
                 System.out.println(lineNumber + ". " + input);
                 lineNumber++;
             }
+            buffReader.close();
+        } catch (IOException e) {
+            System.out.println("Sorry, I couldn't read \"" + fileName + "\". Check the file name and try again.");
         }
 
+        scanner.close();
     }
 }
 
