@@ -1,8 +1,9 @@
 package com.pluralsight;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class WordFrequency {
@@ -35,7 +36,15 @@ public class WordFrequency {
         return counts;
     }
 
-    private  static void printTopWords(HashMap<String, Integer> counts) {
+    private static void printTopWords(HashMap<String, Integer> counts) {
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(counts.entrySet());
+
+            entries.sort((a, b) -> {
+                int byCount = Integer.compare(a.getValue(), b.getValue());
+                return  byCount != 0 ? byCount : a.getKey().compareTo(b.getKey());
+            });
+
+            System.out.println();
 
     }
 }
