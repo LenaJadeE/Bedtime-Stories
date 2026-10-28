@@ -1,10 +1,6 @@
 package com.pluralsight;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class WordFrequency {
     private static final int TopCount = 5;
@@ -39,12 +35,13 @@ public class WordFrequency {
     private static void printTopWords(HashMap<String, Integer> counts) {
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(counts.entrySet());
 
-            entries.sort((a, b) -> {
-                int byCount = Integer.compare(a.getValue(), b.getValue());
-                return  byCount != 0 ? byCount : a.getKey().compareTo(b.getKey());
-            });
+        entries.sort(Comparator.comparingInt((Map.Entry<String, Integer> a) -> a.getValue()).thenComparing(Map.Entry::getKey));
 
-            System.out.println();
-
+        System.out.println();
+        System.out.println("The " + TopCount + " most common words: ");
+        for (int i = 0; i < Math.min(TopCount, entries.size()); i++) {
+            Map.Entry<String, Integer> entry = entries.get(i);
+            System.out.printf("%d. %s (%d times)%n", i + 1, entry.getKey(), entry.getValue());
+        }
     }
 }
